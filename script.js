@@ -6,7 +6,10 @@ function knightMoves(start, end) {
   }
 
   if (possibleMoveTree.endFound) {
-    console.log(possibleMoveTree.printChain(possibleMoveTree.endFound));
+    console.log(
+      "Shortest path is: " +
+        possibleMoveTree.printChain(possibleMoveTree.endFound)
+    );
   }
   console.log(possibleMoveTree.root);
 }
