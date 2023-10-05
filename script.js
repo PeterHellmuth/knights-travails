@@ -5,9 +5,9 @@ function knightMoves(start, end) {
     buildQueue = possibleMoveTree.buildMoveTree(buildQueue, end);
   }
 
-  //if (possibleMoveTree.endFound) {
-  // console.log(possibleMoveTree.printChain(possibleMoveTree.endFound));
-  //}
+  if (possibleMoveTree.endFound) {
+    console.log(possibleMoveTree.printChain(possibleMoveTree.endFound));
+  }
   console.log(possibleMoveTree.root);
 }
 
@@ -37,7 +37,11 @@ class moveTree {
     let returnStr = " : " + node.location.toString();
     let currentNode = node;
     while (currentNode.parent) {
-      let parentStr = " : " + node.location.toString();
+      let delimeter = "";
+      if (currentNode.parent.parent) {
+        delimeter = " : ";
+      }
+      let parentStr = delimeter + currentNode.parent.location.toString();
       returnStr = parentStr.concat(returnStr);
       currentNode = currentNode.parent;
     }
@@ -75,11 +79,10 @@ class moveTree {
           offsets.forEach((offset) => {
             let newLoc = [startX + offset[0], startY + offset[1]];
             if (this.validMove(node, newLoc)) {
-              let finalLocation = false;
               let newChild = new moveNode(newLoc, node);
               node.children.push(newChild);
               if (newLoc[0] == end[0] && newLoc[1] == end[1]) {
-                finalLocation = true;
+                newChild.finalLocation = true;
                 this.endFound = newChild;
                 return;
               }
@@ -125,4 +128,4 @@ class gameBoard {
   }
 }
 
-knightMoves([0, 0], [2, 1]);
+knightMoves([3, 3], [0, 0]);
